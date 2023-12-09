@@ -1,6 +1,12 @@
+'use client';
+
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import {deleteInvoice} from "@/app/lib/actions";
+import { useFormStatus } from 'react-dom';
+import {Spinner} from "@/app/ui/spinner";
+import {Button} from "@/app/ui/button";
+import {ReactNode} from "react";
 
 export function CreateInvoice() {
   return (
@@ -14,7 +20,7 @@ export function CreateInvoice() {
   );
 }
 
-export function UpdateInvoice({ id }: { id: string }) {
+export function UpdateInvoice({ id }: { id: string }) {Spinner
   return (
     <Link
       href={`/dashboard/invoices/${id}/edit`}
@@ -28,10 +34,26 @@ export function UpdateInvoice({ id }: { id: string }) {
 export function DeleteInvoice({ id }: { id: string }) {
   return (
     <form action={deleteInvoice.bind(null, id)}>
-      <button className="rounded-md border p-2 hover:bg-gray-100">
-        <span className="sr-only">Delete</span>
-        <TrashIcon className="w-5" />
-      </button>
+      <DeleteInvoiceButton />
     </form>
+  );
+}
+
+function DeleteInvoiceButton() {
+  const {pending} = useFormStatus();
+  return (
+    <button className="rounded-md border p-2 hover:bg-gray-100">
+      <span className="sr-only">Delete</span>
+      {pending ? <Spinner h={'4'} w={'4'} color={'red-600'}/> : <TrashIcon className="w-5" /> }
+    </button>
+  );
+}
+
+export function SubmitInvoiceButton({children}: {children: ReactNode}) {
+  const {pending} = useFormStatus();
+  return (
+    <Button type="submit">
+      {pending ? <Spinner h={'4'} w={'4'} color={'gray-50'}/> : children }
+    </Button>
   );
 }
