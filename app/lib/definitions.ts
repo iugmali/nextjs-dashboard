@@ -54,5 +54,6 @@ export type InvoiceForm = {
   id: string;
   customer_id: string;
   amount: number;
-  status: 'pending' | 'paid';
+  status: string;
+  // status: 'pending' | 'paid';
 };
