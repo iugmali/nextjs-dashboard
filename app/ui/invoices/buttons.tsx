@@ -44,7 +44,7 @@ function DeleteInvoiceButton() {
   return (
     <button className="rounded-md border p-2 hover:bg-gray-100">
       <span className="sr-only">Delete</span>
-      {pending ? <Spinner h={'4'} w={'4'} color={'red-600'}/> : <TrashIcon className="w-5" /> }
+      {pending ? <Spinner className={'w-4 h-4 border-red-600 border-l-2 border-t-2'}/> : <TrashIcon className="w-5" /> }
     </button>
   );
 }
@@ -53,7 +53,7 @@ export function SubmitInvoiceButton({children}: {children: ReactNode}) {
   const {pending} = useFormStatus();
   return (
     <Button type="submit">
-      {pending ? <Spinner h={'4'} w={'4'} color={'gray-50'}/> : children }
+      {pending ? <Spinner className={'w-4 h-4 border-gray-50 border-l-2 border-t-2'}/> : children }
     </Button>
   );
 }
